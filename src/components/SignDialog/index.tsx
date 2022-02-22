@@ -2,7 +2,7 @@
 import React from 'react';
 import {inject, observer} from 'mobx-react';
 import AccountStore from '@stores/AccountStore';
-import KeeperStore from '@stores/KeeperStore';
+import CubensisStore from '@stores/CubensisStore';
 import NotificationStore from '@stores/NotificationStore';
 import Button from '@components/DappUi/Button';
 import {SignerStore} from '@stores/index';
@@ -14,7 +14,7 @@ import {LoginType} from "@src/interface";
 interface IProps {
     accountStore?: AccountStore
     signerStore?: SignerStore
-    keeperStore?: KeeperStore
+    cubensisStore?: CubensisStore
     notificationStore?: NotificationStore
 }
 
@@ -66,6 +66,7 @@ const Body = styled.div`
     display: flex;
     flex-direction: column;
     justify-content:space-around;
+    text-align: center;
     height: 100%;
     margin: 0 -4px ;
     & > *  {
@@ -80,7 +81,7 @@ ${fonts.footerFont};
 `;
 
 
-@inject('accountStore', 'notificationStore', 'signerStore', 'keeperStore')
+@inject('accountStore', 'notificationStore', 'signerStore', 'cubensisStore')
 @observer
 export default class SignDialog extends React.Component <IProps> {
 
@@ -94,17 +95,17 @@ export default class SignDialog extends React.Component <IProps> {
         document.removeEventListener('mousedown', this.handleClickOutside);
     }
 
-    handleSignWithKeeper = () => {
+    handleSignWithCubensis = () => {
         this.handleCloseDialog();
-        const keeperStore = this.props.keeperStore!;
-        if (keeperStore!.isWavesKeeperInstalled && !keeperStore!.isWavesKeeperInitialized) {
-            keeperStore!.setupSynchronizationWithWavesKeeper();
+        const cubensisStore = this.props.cubensisStore!;
+        if (cubensisStore!.isCubensisConnectInstalled && !cubensisStore!.isCubensisConnectInitialized) {
+            cubensisStore!.setupSynchronizationWithCubensisConnect();
         }
-        keeperStore.login()
+        cubensisStore.login()
             .catch(e => this.props.notificationStore!.notify(
-                <a href="https://docs.waves.tech/en/ecosystem/waves-keeper"  target="_blank" rel="noopener noreferrer">
-                    install WavesKeeper</a>,
-                {type: 'error', title: 'keeper is not installed'})
+                <a href="https://docs.waves.tech/en/ecosystem/waves-cubensis"  target="_blank" rel="noopener noreferrer">
+                    install CubensisConnect</a>,
+                {type: 'error', title: 'cubensis is not installed'})
             );
     };
 
@@ -132,7 +133,7 @@ export default class SignDialog extends React.Component <IProps> {
 
     render(): React.ReactNode {
         const open = this.props.notificationStore!.isOpenLoginDialog;
-        const isKeeper = this.props.keeperStore!.isBrowserSupportsWavesKeeper;
+        const isCubensis = this.props.cubensisStore!.isBrowserSupportsCubensisConnect;
         if (!open) return null;
         return <Overlay>
             <Dialog data-owner={'sign'}>
@@ -140,30 +141,22 @@ export default class SignDialog extends React.Component <IProps> {
                 <Title>Connect a wallet to get started</Title>
                 <Body>
                     <div>
-                        <Button css={css`width: 100%`} onClick={this.handleSignWithKeeper} disabled={!isKeeper}>
-                            Sign in with Keeper
+                    <img src="https://decentralchain.io/wp-content/uploads/2022/02/cubensis-connect-dark.png" width="33%" alt="Cubensis Logo"/><br/><br/>
+                        <Button css={css`width: 33%`} onClick={this.handleSignWithCubensis} disabled={!isCubensis}>
+                            Sign in with Cubensis
                         </Button>
-                        <Description css={!isKeeper && css`color: #EF7362`}>
+                        <Description css={!isCubensis && css`color: #3c26bf`}>
                             <br/>{
-                            isKeeper
-                                ? 'The network will be chosen in WavesKeeper by user'
-                                : 'Waves Keeper doesn’t support this browser'
+                            isCubensis
+                                ? 'The network will be chosen in CubensisConnect by user'
+                                : 'Cubensis Connect doesn’t support this browser'
                         }</Description>
-                    </div>
+                    </div><br/><br/>
                     <div>
-                        <Button css={css`width: 100%`} onClick={this.handleSignWithExchangeSeed} >
-                            Sign in with Exchange(Seed)</Button>
+                    <img src="https://decentral.exchange/img/icons/wavesdex-black-32.svg" width="33%" alt="Decentral Exchange Logo"/><br/><br/>
+                        <Button css={css`width: 33%`} onClick={this.handleSignWithExchangeSeed} >
+                            Sign in with Decentral Exchange (Seed)</Button>
                         <Description><br/>The network will be MainNet by default</Description>
-                    </div>
-                    <div>
-                        <Button css={css`width: 100%`} onClick={this.handleSignWithExchangeMail} >
-                            Sign in with Exchange(Email)</Button>
-                        <Description><br/>The network will be MainNet by default</Description>
-                    </div>
-                    <div>
-                        <Button css={css`width: 100%`} onClick={this.handleSignWithMetamask} >
-                            Sign in with Metamask</Button>
-                        <Description><br/>The network will get from matamask plugin</Description>
                     </div>
                 </Body>
             </Dialog>

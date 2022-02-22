@@ -50,8 +50,8 @@ export const Explorer: React.FunctionComponent<{ meta?: IScriptInfoMeta<TCallabl
     ({meta, hash, onSelect}) =>
         <ScrollBar css={anchorWrapperStyle} options={{suppressScrollX: true}}>
             {meta && meta.callableFuncTypes ? Object.keys(meta.callableFuncTypes).map(key =>
-                <Anchor onClick={onSelect} key={key} href={`#${key}`}
-                        css={hash === key && Anchor}> {centerEllipsis(key)}</Anchor>
+                <Anchor css={anchorWrapperStyle} onClick={onSelect} key={key} href={`#${key}`}
+                        css={hash === key && css`background: #E9EFFF`}> {centerEllipsis(key)}</Anchor>
             ) : <div/>}
             <div css={css`height: 200px; width: 100%`}/>
         </ScrollBar>;

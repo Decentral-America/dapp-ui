@@ -1,6 +1,6 @@
 // TODO use one login type
 export enum ELoginType {
-    KEEPER = 'keeper',
+    CUBENSIS = 'cubensis',
     EXCHANGE = 'exchange',
     METAMASK = 'metamask',
 }

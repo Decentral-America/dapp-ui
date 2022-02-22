@@ -18,14 +18,14 @@ export type TNotifyOptions = Partial<{
 
 const style = {
     boxShadow: '0px 6px 20px rgba(155, 166, 177, 0.3)',
-    borderRadius: '0',
+    borderRadius: '10px',
     padding: 0,
 };
 
 const styles = {
     error: {
         ...style,
-        borderTop: '2px solid #EF7362'
+        borderTop: '2px solid #3c26bf'
     },
     warning: {
         ...style,

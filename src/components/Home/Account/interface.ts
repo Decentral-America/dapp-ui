@@ -1,4 +1,4 @@
 export enum EAddressType {
-    WAVES = 'WAVES',
+    WAVES = 'DCC',
     ETHEREUM = 'ETHEREUM',
 }

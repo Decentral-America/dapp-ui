@@ -10,7 +10,7 @@ height: 40px;
 display: flex; 
 justify-content: center;
 align-items: center;
-background: #F4F6FA;
+background: #e8edef;
 border-radius: 0 4px 4px 0;
 padding-right: 18px;
 cursor: pointer;

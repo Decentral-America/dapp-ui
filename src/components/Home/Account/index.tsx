@@ -24,9 +24,9 @@ export function centerEllipsis(str: string, symbols = 16) {
 
 export const getNetwork = (url: string) => {
     switch (url) {
-        case 'T':
+        case '!':
             return 'TestNet';
-        case 'W':
+        case '?':
             return 'MainNet';
         case 'S':
             return 'StageNet';
@@ -40,7 +40,7 @@ cursor: pointer; white-space: nowrap;padding-left: 10px;
 `;
 
 const ErrorText = styled.div`
-color: #EF7362;
+color: #3c26bf;
 white-space: nowrap;
 `;
 

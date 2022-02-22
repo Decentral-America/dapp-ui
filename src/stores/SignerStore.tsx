@@ -1,13 +1,13 @@
 import {action, observable} from 'mobx';
 import {RootStore} from '@stores';
 import {SubStore} from './SubStore';
-import {Signer} from '@waves/signer';
+import {Signer} from '@decentralchain/signer';
 import {ProviderWeb} from "@waves.exchange/provider-web";
 import {ProviderCloud} from "@waves.exchange/provider-cloud";
 import ProviderMetamask, {isMetaMaskInstalled} from "@waves/provider-metamask";
 import {getExplorerLink, networks, Network, INetwork} from '@utils';
 import {LoginType, ELoginType} from "@src/interface";
-import {waitForTx} from "@waves/waves-transactions";
+import {waitForTx} from "@decentralchain/waves-transactions";
 import Decimal from 'decimal.js';
 
 class SignerStore extends SubStore {
@@ -32,7 +32,7 @@ class SignerStore extends SubStore {
         } else {
             this.signer = undefined;
             this.rootStore.notificationStore.notify(
-                `Unfortunately, Exchange does not support a ${network.server} network at this time. Sign in with Keeper.`,
+                `Unfortunately, Exchange does not support a ${network.server} network at this time. Sign in with Cubensis.`,
                 {type: 'error'}
             )
         }
@@ -47,7 +47,7 @@ class SignerStore extends SubStore {
         } else {
             this.signer = undefined;
             this.rootStore.notificationStore.notify(
-                `Unfortunately, Exchange does not support a ${network.server} network at this time. Sign in with Keeper.`,
+                `Unfortunately, Exchange does not support a ${network.server} network at this time. Sign in with Cubensis.`,
                 {type: 'error'}
             )
         }
@@ -62,7 +62,7 @@ class SignerStore extends SubStore {
         const network = this.getNetworkByDapp();
 
         // todo Remove after release metamask in mainnet
-        if (network.code === 'W') {
+        if (network.code === '?') {
             this.rootStore.notificationStore.notify('Network is not supported for Metamask', {type: 'error'});
             return;
         }

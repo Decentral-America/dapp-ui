@@ -44,7 +44,7 @@ const contentWrapperStyle = css`
 padding: 0 10% 0 30%; 
 display: flex;
 flex-direction: column;
-max-width: 980px!important;
+max-width: 980px;
 @media(max-width: 768px){
   padding: 0 2vw;
 }

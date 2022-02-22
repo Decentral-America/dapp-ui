@@ -18,14 +18,14 @@ color: #6F7582;
     flex: 1;    
     .rc-input-number-input{
         border-radius: 4px 0 0 4px;
-        background: #F4F6FA;
+        background: #e8edef;
         padding: 0 10px;
         text-align: left;
         box-sizing: border-box;
     }
     .rc-input-number-handler-wrap{
       border-color:  #E7EBF4;
-      background: #F4F6FA;
+      background: #e8edef;
       width: 44px;
       border-radius: 0 4px 4px 0;
     }

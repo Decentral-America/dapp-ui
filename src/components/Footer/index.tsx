@@ -20,7 +20,7 @@ padding: 14px 0;
 `
 
 const Footer = () => <Root>
-    <Link rel="noopener, noreferrer" href={'https://wavesplatform.com'} target="_blank">wavesplatform.com</Link>
+    <Link rel="noopener, noreferrer" href={'https://decentralchain.io'} target="_blank">decentralchain.io</Link>
 </Root>;
 
 export default Footer

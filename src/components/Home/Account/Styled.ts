@@ -67,7 +67,7 @@ width: 40px;
 height: 40px;
 box-sizing: border-box;
 border-radius: 6px;
-background-color: #F4F6FA;
+background-color: #e8edef;
 display: flex;
 justify-content: center;
 align-items: center;

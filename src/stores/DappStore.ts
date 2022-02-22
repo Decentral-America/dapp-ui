@@ -5,36 +5,36 @@ import { ELoginType, ICallableArgumentType } from '@src/interface';
 
 import {SubStore} from './SubStore';
 
-interface IKeeperTransactionDataCallArg {
+interface ICubensisTransactionDataCallArg {
     type: string,
     value: string | number | boolean | { type: string, value: string | number | boolean }[]
 }
 
-interface IKeeperTransactionDataCall {
+interface ICubensisTransactionDataCall {
     function: string,
-    args: IKeeperTransactionDataCallArg[]
+    args: ICubensisTransactionDataCallArg[]
 }
 
-interface IKeeperTransactionDataFee {
+interface ICubensisTransactionDataFee {
     tokens: string,
     assetId: string
 }
 
-interface IKeeperTransactionPayment {
+interface ICubensisTransactionPayment {
     assetId: string,
     tokens: number
 }
 
-interface IKeeperTransactionData {
+interface ICubensisTransactionData {
     dApp: string,
-    call: IKeeperTransactionDataCall,
-    payment: IKeeperTransactionPayment[]
-    fee: IKeeperTransactionDataFee,
+    call: ICubensisTransactionDataCall,
+    payment: ICubensisTransactionPayment[]
+    fee: ICubensisTransactionDataFee,
 }
 
-export interface IKeeperTransaction {
+export interface ICubensisTransaction {
     type: number,
-    data: IKeeperTransactionData
+    data: ICubensisTransactionData
 }
 
 class DappStore extends SubStore {
@@ -57,18 +57,18 @@ class DappStore extends SubStore {
         return {...item, type: convertArgType(item.type), value: this.convertArgValue(item)} as IArgumentInput;
     });
 
-    private convertArgs = (args: IArgument[]): IKeeperTransactionDataCallArg[] =>
+    private convertArgs = (args: IArgument[]): ICubensisTransactionDataCallArg[] =>
         args.filter(({value}) => value !== undefined || !(value as unknown as IArgumentInput[]).some(item => item.value === undefined))
             .map(arg => {
                 const convertedValue = arg.type.startsWith('List')
                     ? this.convertArgValueList(arg.value as IArgumentInput[])
                     : this.convertArgValue(arg as IArgumentInput)
-                return ({type: convertArgType(arg.type), value: convertedValue} as IKeeperTransactionDataCallArg)
+                return ({type: convertArgType(arg.type), value: convertedValue} as ICubensisTransactionDataCallArg)
             });
 
-    callCallableFunction = (address: string, func: string, inArgs: IArgument[], payment: IKeeperTransactionPayment[]) => {
+    callCallableFunction = (address: string, func: string, inArgs: IArgument[], payment: ICubensisTransactionPayment[]) => {
         const {accountStore} = this.rootStore;
-        let args: IKeeperTransactionDataCallArg[] = [];
+        let args: ICubensisTransactionDataCallArg[] = [];
         try {
             args = this.convertArgs(inArgs);
         } catch (e) {
@@ -76,17 +76,17 @@ class DappStore extends SubStore {
             this.rootStore.notificationStore.notify(e, {type: 'error'});
         }
 
-        const transactionData: IKeeperTransactionData = {
+        const transactionData: ICubensisTransactionData = {
             dApp: address,
             call: {
                 function: func,
                 args
             },
-            fee: {tokens: this.rootStore.accountStore.fee, assetId: 'WAVES'},
+            fee: {tokens: this.rootStore.accountStore.fee, assetId: 'DCC'},
             payment
         };
 
-        const tx: IKeeperTransaction = {
+        const tx: ICubensisTransaction = {
             type: 16,
             data: transactionData
         };
@@ -97,17 +97,17 @@ class DappStore extends SubStore {
             return;
         }
 
-        if (accountStore.loginType === ELoginType.KEEPER) {
-            return this.rootStore.keeperStore.sendTx(tx)
+        if (accountStore.loginType === ELoginType.CUBENSIS) {
+            return this.rootStore.cubensisStore.sendTx(tx)
         }
 
         if (accountStore.loginType === ELoginType.EXCHANGE) this.rootStore.signerStore.sendTx(tx)
 
     };
 
-    getTransactionJson = (address: string, func: string, inArgs: IArgument[], payment: IKeeperTransactionPayment[]) => {
+    getTransactionJson = (address: string, func: string, inArgs: IArgument[], payment: ICubensisTransactionPayment[]) => {
         const {accountStore} = this.rootStore;
-        let args: IKeeperTransactionDataCallArg[] = [];
+        let args: ICubensisTransactionDataCallArg[] = [];
         try {
             args = this.convertArgs(inArgs);
         } catch (e) {
@@ -115,17 +115,17 @@ class DappStore extends SubStore {
             this.rootStore.notificationStore.notify(e, {type: 'error'});
         }
 
-        const transactionData: IKeeperTransactionData = {
+        const transactionData: ICubensisTransactionData = {
             dApp: address,
             call: {
                 function: func,
                 args
             },
-            fee: {tokens: this.rootStore.accountStore.fee, assetId: 'WAVES'},
+            fee: {tokens: this.rootStore.accountStore.fee, assetId: 'DCC'},
             payment
         };
 
-        const tx: IKeeperTransaction = {
+        const tx: ICubensisTransaction = {
             type: 16,
             data: transactionData
         };
@@ -136,8 +136,8 @@ class DappStore extends SubStore {
             return;
         }
 
-        if (accountStore.loginType === 'keeper') {
-            return this.rootStore.keeperStore.buildTx(tx)
+        if (accountStore.loginType === 'cubensis') {
+            return this.rootStore.cubensisStore.buildTx(tx)
         }
 
         if (accountStore.loginType === 'exchange') this.rootStore.signerStore.buildTx(tx)

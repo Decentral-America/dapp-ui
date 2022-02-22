@@ -16,7 +16,6 @@ import HistoryStore from "@stores/HistoryStore";
 
 const FormBg = styled.div`
     height: 100px;
-    background: white;
     margin: 0 15%; 
     @media(max-width: 768px){
       margin: 0 4%; 
@@ -82,7 +81,7 @@ class HomeComponent extends React.Component<IProps, IState> {
         return <Bg>
             <Head/>
             <FormBg>
-                <Title>Search for Smart Contract</Title>
+                <Title>Search and interact with DecentralChain dApps, start by searching the smart contract:</Title>
                 <InputWrapper>
                     <Input onKeyPress={this.handleKeyPress} css={withSearchIconStyle} value={value}
                            onChange={this.handleChange} spellCheck={false}/>

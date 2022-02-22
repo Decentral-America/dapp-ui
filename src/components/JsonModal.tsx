@@ -1,3 +1,4 @@
+// @ts-ignore
 import React from "react";
 import styled from "@emotion/styled";
 import {inject, observer} from "mobx-react";
@@ -9,7 +10,7 @@ import NotificationStore from "@stores/NotificationStore";
 import Close from "@src/assets/icons/Close";
 import {SignedTransaction, InvokeScriptTransaction} from "@waves/ts-types";
 import {SignerStore} from "@stores";
-import {broadcast, waitForTx} from "@waves/waves-transactions";
+import {broadcast, waitForTx} from "@decentralchain/waves-transactions/";
 import {getExplorerLink} from "@utils";
 
 const Root = styled.div`
@@ -54,7 +55,7 @@ const WrapperTitle = styled.div`
 
 const Button = styled.div`
   margin-left: 25px;
-  background: #7CA1FD;
+  background: #f99f02;
   border-radius: 4px;
   min-width: 150px;
   height: 40px;

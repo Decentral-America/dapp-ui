@@ -17,7 +17,7 @@ color: #6F7582;
   width: 100%;
  
   .rc-select-selection{
-      background: #F4F6FA;
+      background: #e8edef;
       border-radius: 4px;
       border: none;
       box-shadow: none !important;

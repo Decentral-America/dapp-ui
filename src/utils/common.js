@@ -56,16 +56,12 @@ export const loadState = () => {
 
 export const getExplorerLink = (chainId, address, type) => {
     switch (chainId) {
-        case 'W':
-            return `https://wavesexplorer.com/${type}/${address}`;
-        case 'T':
-            return `https://testnet.wavesexplorer.com/${type}/${address}`;
-        case 'S':
-            return `https://stagenet.wavesexplorer.com/${type}/${address}`;
-        case 'C':
-            return `https://stagenet.wavesexplorer.com/custom/${type}/${address}`;
+        case '?':
+            return `https://decentralscan.com/${type}/${address}`;
+        case '!':
+            return `https://decentralscan.com/testnet/${type}/${address}`;
         default:
-            return `https://wavesexplorer.com/custom/${type}/${address}`;
+            return `https://decentralscan.com/custom/${type}/${address}`;
     }
 };
 

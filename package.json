@@ -1,13 +1,18 @@
 {
   "name": "new-dapui",
   "version": "0.3.4",
-  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
   "engines": {
-    "node": "12.x",
+    "node": "^12.x",
     "npm": "6.x"
   },
   "dependencies": {
+    "@decentralchain/waves-transactions": "4.2.3",
     "@babel/core": "7.6.0",
+    "@decentralchain/signer": "1.0.8",
+    "@decentralchain/provider-cubensis": "latest",
     "@emotion/core": "^10.0.22",
     "@emotion/styled": "^10.0.23",
     "@svgr/webpack": "4.3.2",
@@ -20,9 +25,7 @@
     "@waves.exchange/provider-web": "1.0.2",
     "@waves/node-api-js": "^1.2.5-beta.14",
     "@waves/provider-metamask": "^1.0.3",
-    "@waves/signer": "1.0.5",
     "@waves/ts-lib-crypto": "^1.4.3",
-    "@waves/waves-transactions": "4.2.1",
     "axios": "^0.21.0",
     "babel-eslint": "10.0.3",
     "babel-jest": "^24.9.0",
